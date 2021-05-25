@@ -17,6 +17,7 @@ router.get("/gettanqueadas/:de", validarJWT, getTanqueadas);
 
 router.post('/getvehiculoplaca', [
     check('placa', 'La placa es obligatorio').not().isEmpty(),
+    validarJWT,
 ], getVehiculoPlaca);
 
 router.post('/new', [
@@ -24,14 +25,16 @@ router.post('/new', [
     check('placa', 'La placa es obligatoria').not().isEmpty(),
     check('modelo', 'El modelo es obligatorio, describe el vehiculo').not().isEmpty(),
     check('categoria', 'La categoria es obligatoria').not().isEmpty(),
-    validarCampos
+    validarCampos,
+    validarJWT
 ], crearVehiculo);
 
 router.post('/tanqueo', [
     check('vehiculo', 'Referenciar un vehiculo es obligatorio').not().isEmpty(),
     check('bomba', 'Referencias una bomba es obligatorio').not().isEmpty(),
     check('valor', 'El valor del tanqueo es obligatorio').not().isEmpty(),
-    validarCampos
+    validarCampos,
+    validarJWT
 ], tanqueoVehiculo);
 
 
