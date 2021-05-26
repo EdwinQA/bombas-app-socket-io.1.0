@@ -2,6 +2,7 @@ const { response } = require("express");
 const bcrypt = require('bcryptjs');
 const Usuario = require("../models/usuario");
 const { generarJWT } = require("../helpers/jwt");
+const Impdato = require("../models/impdatos");
 
 const crearUsuario = async (req, res = response) => {
 
@@ -71,9 +72,18 @@ const login = async (req, res = response) => {
         //Generar el JWT
         const token = await generarJWT(usuarioDB.id);
 
+        const impdatoDB = await Impdato.find({ });
+        if (!impdatoDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Error con Impdato Hable con el administrador'
+            });
+        }
+
         res.json({
             ok: true,
             usuario: usuarioDB,
+            dias_vt:impdatoDB[0].dias_vt,
             token
         });
 
@@ -94,9 +104,18 @@ const renewToken = async (req, res = response) => {
     const token = await generarJWT(uid);
     const usuarioDB = await Usuario.findOne({ _id: uid });
 
+    const impdatoDB = await Impdato.find({ });
+        if (!impdatoDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Error con Impdato Hable con el administrador'
+            });
+        }
+
     res.json({
         ok: true,
         usuario: usuarioDB,
+        dias_vt:impdatoDB[0].dias_vt,
         token
     });
 

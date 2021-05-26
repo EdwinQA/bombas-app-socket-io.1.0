@@ -9,18 +9,18 @@ const { now } = require("mongoose");
 const getTipoVehiculo = async (req, res = response) => {
 
 
-    const tipovehiculo = await Tipovehiculo.find({});
+    const tipovehiculoBD = await Tipovehiculo.find({});
 
     res.json({
         ok: true,
-        tipovehiculo,
+        tipovehiculo: tipovehiculoBD,
         // desde // para hacer un llamado por partes. 
     });
 }
 
 const crearVehiculo = async (req, res = response) => {
 
-    const { placa } = req.body;
+    const { placa, categoria } = req.body;
 
     try {
 
@@ -35,9 +35,12 @@ const crearVehiculo = async (req, res = response) => {
         const vehiculo = new Vehiculo(req.body);
         await vehiculo.save();
 
+        const tipovehiculoBD = await Tipovehiculo.findOne({ _id: categoria });
+
         res.json({
             ok: true,
             vehiculo,
+            tipovehiculo:tipovehiculoBD
         });
 
     } catch (error) {
@@ -81,7 +84,7 @@ const getTanqueadas = async (req, res = response) => {
 
     const tanqueadaDe = req.params.de;
 
-    const last30 = await Tanqueo.find({vehiculo: tanqueadaDe })
+    const last30 = await Tanqueo.find({ vehiculo: tanqueadaDe })
         .sort({ createAt: 'desc' })
         .limit(30);
 
@@ -107,10 +110,13 @@ const getVehiculoPlaca = async (req, res = response) => {
             });
         }
 
+        const tipovehiculoBD = await Tipovehiculo.findOne({ _id: vehiculoDB.categoria });
+
 
         res.json({
             ok: true,
-            vehiculo: vehiculoDB
+            vehiculo: vehiculoDB,
+            tipovehiculo: tipovehiculoBD
         });
 
     } catch (error) {
