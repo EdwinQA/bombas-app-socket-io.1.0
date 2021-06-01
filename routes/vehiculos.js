@@ -21,10 +21,8 @@ router.post('/getvehiculoplaca', [
 ], getVehiculoPlaca);
 
 router.post('/new', [
-    check('nombrepropietario', 'El nombre del propietario es obligatorio').not().isEmpty(),
+    check('nombrebomba', 'La bomba que registra es obligatoria').not().isEmpty(),
     check('placa', 'La placa es obligatoria').not().isEmpty(),
-    check('modelo', 'El modelo es obligatorio, describe el vehiculo').not().isEmpty(),
-    check('categoria', 'La categoria es obligatoria').not().isEmpty(),
     validarCampos,
     validarJWT
 ], crearVehiculo);
@@ -32,7 +30,6 @@ router.post('/new', [
 router.post('/tanqueo', [
     check('vehiculo', 'Referenciar un vehiculo es obligatorio').not().isEmpty(),
     check('bomba', 'Referencias una bomba es obligatorio').not().isEmpty(),
-    check('valor', 'El valor del tanqueo es obligatorio').not().isEmpty(),
     validarCampos,
     validarJWT
 ], tanqueoVehiculo);

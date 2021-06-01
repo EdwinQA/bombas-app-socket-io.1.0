@@ -3,21 +3,12 @@ const { Schema, model } = require('mongoose');
 
 const VehiculoSchema = Schema({
 
-    nombrepropietario: {
+    nombrebomba: {
         type: String,
         require: true
     },
     placa: {
         type: String,
-        require: true
-    },
-    modelo: {
-        type: String,
-        require: true
-    },
-    categoria: {
-        type: Schema.Types.ObjectId,
-        ref: 'tipovehiculo',
         require: true
     },
 

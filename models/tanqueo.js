@@ -5,19 +5,13 @@ const TanqueoSchema = Schema({
 
     vehiculo: {
         type: Schema.Types.ObjectId,
-        ref: 'Tipovehiculo',
+        ref: 'Vehiculo',
         require: true
     },
     bomba: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario',
-        require: true
-    },
-    valor: {
         type: String,
         require: true
     },
-
 }, {
     timestamps: true
 });

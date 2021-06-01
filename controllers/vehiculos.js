@@ -20,7 +20,7 @@ const getTipoVehiculo = async (req, res = response) => {
 
 const crearVehiculo = async (req, res = response) => {
 
-    const { placa, categoria } = req.body;
+    const { placa} = req.body;
 
     try {
 
@@ -35,12 +35,10 @@ const crearVehiculo = async (req, res = response) => {
         const vehiculo = new Vehiculo(req.body);
         await vehiculo.save();
 
-        const tipovehiculoBD = await Tipovehiculo.findOne({ _id: categoria });
 
         res.json({
             ok: true,
-            vehiculo,
-            tipovehiculo:tipovehiculoBD
+            vehiculo
         });
 
     } catch (error) {
@@ -101,7 +99,6 @@ const getVehiculoPlaca = async (req, res = response) => {
 
     try {
 
-
         const vehiculoDB = await Vehiculo.findOne({ placa });
         if (!vehiculoDB) {
             return res.status(404).json({
@@ -110,13 +107,11 @@ const getVehiculoPlaca = async (req, res = response) => {
             });
         }
 
-        const tipovehiculoBD = await Tipovehiculo.findOne({ _id: vehiculoDB.categoria });
 
 
         res.json({
             ok: true,
-            vehiculo: vehiculoDB,
-            tipovehiculo: tipovehiculoBD
+            vehiculo: vehiculoDB
         });
 
     } catch (error) {
