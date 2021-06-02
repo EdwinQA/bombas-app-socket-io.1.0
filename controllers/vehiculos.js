@@ -20,7 +20,7 @@ const getTipoVehiculo = async (req, res = response) => {
 
 const crearVehiculo = async (req, res = response) => {
 
-    const { placa} = req.body;
+    const { placa } = req.body;
 
     try {
 
@@ -108,7 +108,7 @@ const getVehiculoPlaca = async (req, res = response) => {
         }
 
 
-
+ 
         res.json({
             ok: true,
             vehiculo: vehiculoDB

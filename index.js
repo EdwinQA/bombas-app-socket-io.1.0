@@ -7,6 +7,9 @@ require('./database/config').dbConnection();
 
 // App de Express
 const app = express();
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
 
 // Lectura Y parseo del body
 app.use(express.json());

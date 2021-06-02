@@ -51,8 +51,6 @@ const login = async (req, res = response) => {
     const { email, password } = req.body;
 
     try {
-
-
         const usuarioDB = await Usuario.findOne({ email });
         if (!usuarioDB) {
             return res.status(404).json({
@@ -72,7 +70,7 @@ const login = async (req, res = response) => {
         //Generar el JWT
         const token = await generarJWT(usuarioDB.id);
 
-        const impdatoDB = await Impdato.find({ });
+        const impdatoDB = await Impdato.find({});
         if (!impdatoDB) {
             return res.status(404).json({
                 ok: false,
@@ -83,7 +81,7 @@ const login = async (req, res = response) => {
         res.json({
             ok: true,
             usuario: usuarioDB,
-            dias_vt:impdatoDB[0].dias_vt,
+            dias_vt: impdatoDB[0].dias_vt,
             token
         });
 
@@ -104,18 +102,18 @@ const renewToken = async (req, res = response) => {
     const token = await generarJWT(uid);
     const usuarioDB = await Usuario.findOne({ _id: uid });
 
-    const impdatoDB = await Impdato.find({ });
-        if (!impdatoDB) {
-            return res.status(404).json({
-                ok: false,
-                msg: 'Error con Impdato Hable con el administrador'
-            });
-        }
+    const impdatoDB = await Impdato.find({});
+    if (!impdatoDB) {
+        return res.status(404).json({
+            ok: false,
+            msg: 'Error con Impdato Hable con el administrador'
+        });
+    }
 
     res.json({
         ok: true,
         usuario: usuarioDB,
-        dias_vt:impdatoDB[0].dias_vt,
+        dias_vt: impdatoDB[0].dias_vt,
         token
     });
 
